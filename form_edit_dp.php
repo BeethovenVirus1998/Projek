@@ -8,9 +8,9 @@ $id_pengampu= $_GET['id_pengampu'];
 
 $id_dosen= $_GET['id_dosen'];
 
-$query1= mysql_query("SELECT * FROM data_dosen WHERE id_dosen='$id_dosen'");
+$query1= mysqli_query($koneksi, "SELECT * FROM data_dosen WHERE id_dosen='$id_dosen'");
 
-$result1= mysql_fetch_array($query1);
+$result1= mysqli_fetch_array($query1);
 
 
 
@@ -19,17 +19,17 @@ $result1= mysql_fetch_array($query1);
 
 $id_matkul= $_GET['id_matkul'];
 
-$query3 = mysql_query("SELECT * FROM setup_matkul WHERE id_matkul='$id_matkul'");
+$query3 = mysqli_query($koneksi,"SELECT * FROM setup_matkul WHERE id_matkul='$id_matkul'");
 
-$result3 = mysql_fetch_array($query3);
+$result3 = mysqli_fetch_array($query3);
 
 
 
 $id_kelas= $_GET['id_kelas'];
 
-$query2 = mysql_query("SELECT * FROM setup_kelas WHERE id_kelas='$id_kelas'");
+$query2 = mysqli_query($koneksi,"SELECT * FROM setup_kelas WHERE id_kelas='$id_kelas'");
 
-$result2 = mysql_fetch_array($query2);
+$result2 = mysqli_fetch_array($query2);
 
 
 
@@ -37,14 +37,14 @@ if(isset($_POST['edit'])){
   $id_pengampu=($_GET['id_pengampu']);
   
   $id_matkul=ucwords(htmlentities($_POST['id_matkul']));
-  $qry2 = mysql_query("SELECT * FROM setup_matkul WHERE id_matkul='$id_matkul'");
-  $data2 = mysql_fetch_array($qry2);
+  $qry2 = mysqli_query($koneksi,"SELECT * FROM setup_matkul WHERE id_matkul='$id_matkul'");
+  $data2 = mysqli_fetch_array($qry2);
 
   $id_kelas=ucwords(htmlentities($_POST['id_kelas']));
-  $qry = mysql_query("SELECT * FROM setup_kelas WHERE id_kelas='$id_kelas'");
-  $data1 = mysql_fetch_array($qry);
+  $qry = mysqli_query($koneksi,"SELECT * FROM setup_kelas WHERE id_kelas='$id_kelas'");
+  $data1 = mysqli_fetch_array($qry);
 
-  $query=mysql_query("UPDATE data_pengampu set id_kelas='$data1[id_kelas]', id_matkul='$data2[id_matkul]' where id_pengampu='$id_pengampu'");
+  $query=mysqli_query($koneksi,"UPDATE data_pengampu set id_kelas='$data1[id_kelas]', id_matkul='$data2[id_matkul]' where id_pengampu='$id_pengampu'");
   if($query){
     ?><script language="javascript">document.location.href="?page=data_pengampu&status=31";</script><?php
   }else{
@@ -96,8 +96,8 @@ if(isset($_POST['edit'])){
                       <td><select name="id_matkul"  class="form-control">
 
                           <?php
-              $matkul=mysql_query("select * from setup_matkul order by nama_matkul asc");
-              while($row2=mysql_fetch_array($matkul)){
+              $matkul=mysqli_query($koneksi,"select * from setup_matkul order by nama_matkul asc");
+              while($row2=mysqli_fetch_array($matkul)){
               ?>
                 <option value="<?php echo $row2['id_matkul'];?>"><?php echo $row2['nama_matkul'];?></option>
               <?php
@@ -114,8 +114,8 @@ if(isset($_POST['edit'])){
                       <td><select name="id_kelas"  class="form-control">
 
                       <?php
-              $kelas=mysql_query("select * from setup_kelas order by nama_kelas asc");
-              while($row4=mysql_fetch_array($kelas)){
+              $kelas=mysqli_query($koneksi,"select * from setup_kelas order by nama_kelas asc");
+              while($row4=mysqli_fetch_array($kelas)){
               ?>
                 <option value="<?php echo $row4['id_kelas'];?>"><?php echo $row4['nama_kelas'];?></option>
               <?php

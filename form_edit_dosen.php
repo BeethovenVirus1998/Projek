@@ -9,11 +9,11 @@ if (!isset($_GET['id_dosen'])){
 
 $id_dosen= $_GET['id_dosen'];
 
-$query = mysql_query("SELECT * FROM data_dosen WHERE id_dosen='$id_dosen'");
+$query = mysqli_query($koneksi,"SELECT * FROM data_dosen WHERE id_dosen='$id_dosen'");
 
-$result = mysql_fetch_array($query);
+$result = mysqli_fetch_array($query);
 
-if(mysql_num_rows($query) < 1){
+if(mysqli_num_rows($query) < 1){
 	
 	die("Data tidak ditemukan");
 }
@@ -22,11 +22,12 @@ if(isset($_POST['edit'])){
   $nama_dosen=ucwords(htmlentities($_POST['nama_dosen']));
   $nip=htmlentities($_POST['nip']);
   $kelamin=htmlentities($_POST['kelamin']);
+  $alamat=htmlentities($_POST['alamat']);
   
   $username=htmlentities($_POST['username']);
   $password=md5(htmlentities($_POST['password']));
   echo "$nama_dosen";
-  $query=mysql_query("UPDATE data_dosen SET nama_dosen='$nama_dosen', nip='$nip', kelamin='$kelamin', username='$username', password='$password' WHERE id_dosen='$id_dosen'");
+  $query=mysqli_query($koneksi, "UPDATE data_dosen SET nama_dosen='$nama_dosen', nip='$nip', kelamin='$kelamin', alamat='$alamat', username='$username', password='$password' WHERE id_dosen='$id_dosen'");
   
   
   if($query){
@@ -65,7 +66,7 @@ if(isset($_POST['edit'])){
                   <table border="0" cellpadding="0" cellspacing="0"  id="id-form">
                     <tr>
                       <th>Nama Dosen </th>
-                      <td><input style="width: 350px;" type="text" class="form-control" name="nama_dosen" value="<?php echo $result['nama_dosen']; ?>"/></td>
+                      <td><input type="text" class="form-control" name="nama_dosen" value="<?php echo $result['nama_dosen']; ?>"/></td>
                       <td></td>
                     </tr>
                      <tr>
@@ -83,7 +84,10 @@ if(isset($_POST['edit'])){
                       <td></td>
                     </tr>
 
-                    
+                    <tr>
+                      <th>Alamat</th>
+                      <td><textarea name="alamat"><?php echo $result['alamat'];?></textarea></td>
+                    </tr>
 
                     
                 
