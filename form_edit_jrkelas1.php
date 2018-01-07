@@ -15,11 +15,11 @@ if (!isset($_GET['id_mahasiswa'])){
 
 $id_mahasiswa= $_GET['id_mahasiswa'];
 
-$query1 = mysql_query("SELECT * FROM data_mahasiswa WHERE id_mahasiswa='$id_mahasiswa'");
+$query1 = mysqli_query($koneksi,"SELECT * FROM data_mahasiswa WHERE id_mahasiswa='$id_mahasiswa'");
 
-$result1 = mysql_fetch_array($query1);
+$result1 = mysqli_fetch_array($query1);
 
-if(mysql_num_rows($query1) < 1){
+if(mysqli_num_rows($query1) < 1){
   
   die("Data tidak ditemukan");
 }
@@ -29,11 +29,11 @@ if (!isset($_GET['id_kelas'])){
 
 $id_kelas= $_GET['id_kelas'];
 
-$query2 = mysql_query("SELECT * FROM setup_kelas WHERE id_kelas='$id_kelas'");
+$query2 = mysqli_query($koneksi,"SELECT * FROM setup_kelas WHERE id_kelas='$id_kelas'");
 
-$result2 = mysql_fetch_array($query2);
+$result2 = mysqli_fetch_array($query2);
 
-if(mysql_num_rows($query2) < 1){
+if(mysqli_num_rows($query2) < 1){
   
   die("Data tidak ditemukan");
 }
@@ -41,10 +41,10 @@ if(mysql_num_rows($query2) < 1){
 if(isset($_POST['edit'])){
   $id_ruangan=($_GET['id_ruangan']);
   $id_kelas=ucwords(htmlentities($_POST['id_kelas']));
-  $qry = mysql_query("SELECT * FROM setup_kelas WHERE id_kelas='$id_kelas'");
-  $data1 = mysql_fetch_array($qry);
+  $qry = mysqli_query($koneksi,"SELECT * FROM setup_kelas WHERE id_kelas='$id_kelas'");
+  $data1 = mysqli_fetch_array($qry);
 
-  $query=mysql_query("UPDATE tbl_ruangan set id_kelas='$data1[id_kelas]' where id_ruangan='$id_ruangan'");
+  $query=mysqli_query($koneksi,"UPDATE tbl_ruangan set id_kelas='$data1[id_kelas]' where id_ruangan='$id_ruangan'");
   
   if($query){
     ?><script language="javascript">document.location.href="?page=jadwal_ruangkelas&status=29";</script><?php
@@ -99,8 +99,8 @@ if(isset($_POST['edit'])){
                       <td><select name="id_kelas"  class="form-control">
 
                           <?php
-              $kelas=mysql_query("select * from setup_kelas order by nama_kelas asc");
-              while($row2=mysql_fetch_array($kelas)){
+              $kelas=mysqli_query($koneksi,"select * from setup_kelas order by nama_kelas asc");
+              while($row2=mysqli_fetch_array($kelas)){
               ?>
                 <option value="<?php echo $row2['id_kelas'];?>"><?php echo $row2['nama_kelas'];?></option>
               <?php

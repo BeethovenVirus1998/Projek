@@ -9,11 +9,11 @@ if (!isset($_GET['id_matkul'])){
 
 $id_matkul= $_GET['id_matkul'];
 
-$query = mysql_query("SELECT * FROM setup_matkul WHERE id_matkul='$id_matkul'");
+$query = mysqli_query($koneksi,"SELECT * FROM setup_matkul WHERE id_matkul='$id_matkul'");
 
-$result = mysql_fetch_array($query);
+$result = mysqli_fetch_array($query);
 
-if(mysql_num_rows($query) < 1){
+if(mysqli_num_rows($query) < 1){
 
 	die("Data tidak ditemukan");
 }
@@ -21,7 +21,7 @@ if(isset($_POST['edit'])){
   
   $nama_matkul=ucwords(htmlentities($_POST['nama_matkul']));
   echo "$nama_matkul";
-  $query=mysql_query("UPDATE setup_matkul SET nama_matkul='$nama_matkul' WHERE id_matkul='$id_matkul'");
+  $query=mysqli_query($koneksi,"UPDATE setup_matkul SET nama_matkul='$nama_matkul' WHERE id_matkul='$id_matkul'");
   
   
   if($query){
@@ -42,39 +42,49 @@ if(isset($_POST['edit'])){
 	<title>Form Edit</title>
 </head>
 <body>
-	<header>
-		<h3>Form Edit</h3>
-	</header>
-	<form action="" method="post">
- 	        <table border="0" width="100%" cellpadding="0" cellspacing="0">
-            <tr valign="top">
-              <td>
-                  <table border="0" width="100%" cellpadding="0" cellspacing="0">
+	
+<div class="row">
+          
+          <div class="col-lg-12">
+                    <div class="panel panel-success">
+                        <div class="panel-heading">
+                        <h3 class="panel-title"><i class="fa fa-book"></i> Edit Mata Kuliah</h3> 
+                        </div>
+                        <div class="panel-body">
+                        <div class="table-responsive">
+  <div class="form-group">
+  <div class="form-group">
+  <form action="" method="post">
+          <table border="0" width="100%" cellpadding="0" cellspacing="0">
             <tr valign="top">
               <td>
                   <table border="0" cellpadding="0" cellspacing="0"  id="id-form">
                     <tr>
                       <th valign="top">Nama Mata Kuliah </th>
-                      <td><input type="text" class="inp-form" name="nama_matkul" value="<?php $result['nama_matkul']; ?>" /></td>
-                      <td></td>
-                    </tr>
+                      <td><input style="width: 350px;" class="form-control" type="text" class="inp-form" name="nama_matkul" value="<?php $result['nama_matkul']; ?>" /></td>
+                      
+                    </tr><br>
                     <tr>
                       <th>&nbsp;</th>
-                      <td valign="top"><input type="submit" name="edit" value="edit" class="form-submit" />
+                      <td valign="top"><input type="submit" name="edit" value="edit" class="btn btn-info" /><br>
                       </td>
-                      <td></td>
+  
                     </tr>
                   </table>
-              </td>
-              <td>
-              </td>
-            </tr>
-            <tr>
-              <td><img src="images/shared/blank.gif" width="695" height="1" alt="blank" /></td>
-              <td></td>
-            </tr>
-        	</table>
-			</form>
+           
+        	
+			
+</td>
+</tr>
+</table>
+</form>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
 
 </body>
 </html>

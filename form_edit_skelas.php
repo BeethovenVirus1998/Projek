@@ -9,11 +9,11 @@ if (!isset($_GET['id_kelas'])){
 
 $id_kelas= $_GET['id_kelas'];
 
-$query = mysql_query("SELECT * FROM setup_kelas WHERE id_kelas='$id_kelas'");
+$query = mysqli_query($koneksi, "SELECT * FROM setup_kelas WHERE id_kelas='$id_kelas'");
 
-$result = mysql_fetch_array($query);
+$result = mysqli_fetch_array($query);
 
-if(mysql_num_rows($query) < 1){
+if(mysqli_num_rows($query) < 1){
 	
 	die("Data tidak ditemukan");
 }
@@ -21,7 +21,7 @@ if(isset($_POST['edit'])){
   
   $nama_kelas=ucwords(htmlentities($_POST['nama_kelas']));
   echo "$nama_kelas";
-  $query=mysql_query("UPDATE setup_kelas SET nama_kelas='$nama_kelas' WHERE id_kelas='$id_kelas'");
+  $query=mysqli_query($koneksi,"UPDATE setup_kelas SET nama_kelas='$nama_kelas' WHERE id_kelas='$id_kelas'");
   
   
   if($query){

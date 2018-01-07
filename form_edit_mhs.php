@@ -4,18 +4,18 @@ include "conn.php";
 
 
 if (!isset($_GET['id_mahasiswa'])){
-  header( 'Location: home.php?page=data_mahasiswa');
+	header( 'Location: home.php?page=data_mahasiswa');
 }
 
 $id_mahasiswa= $_GET['id_mahasiswa'];
 
-$query = mysql_query("SELECT * FROM data_mahasiswa WHERE id_mahasiswa='$id_mahasiswa'");
+$query = mysqli_query($koneksi,"SELECT * FROM data_mahasiswa WHERE id_mahasiswa='$id_mahasiswa'");
 
-$result = mysql_fetch_array($query);
+$result = mysqli_fetch_array($query);
 
-if(mysql_num_rows($query) < 1){
-  
-  die("Data tidak ditemukan");
+if(mysqli_num_rows($query) < 1){
+	
+	die("Data tidak ditemukan");
 }
 if(isset($_POST['edit'])){
   
@@ -36,13 +36,13 @@ if(isset($_POST['edit'])){
    
  
   if(move_uploaded_file($tmp, $path))
-    $query = mysql_query("SELECT * FROM data_mahasiswa WHERE id_mahasiswa='$id_mahasiswa'");
-    $row = mysql_fetch_array($query); 
+    $query = mysqli_query($koneksi,"SELECT * FROM data_mahasiswa WHERE id_mahasiswa='$id_mahasiswa'");
+    $row = mysqli_fetch_array($query); 
 
     if(is_file("gambar/".$row['foto'])) 
       unlink("gambar/".$row['foto']); 
 
-  $query1=mysql_query("UPDATE data_mahasiswa SET nama_mahasiswa='$nama_mahasiswa', nim='$nim', kelamin='$kelamin', username='$username', password='$password', foto='$fotobaru' WHERE id_mahasiswa='$id_mahasiswa'");
+  $query1=mysqli_query($koneksi,"UPDATE data_mahasiswa SET nama_mahasiswa='$nama_mahasiswa', nim='$nim', kelamin='$kelamin', username='$username', password='$password', foto='$fotobaru' WHERE id_mahasiswa='$id_mahasiswa'");
   
   
   if($query1){
@@ -61,10 +61,10 @@ if(isset($_POST['edit'])){
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Form Edit</title>
+	<title>Form Edit</title>
 </head>
 <body>
-  <div class="row">
+	<div class="row">
           
           <div class="col-lg-12">
                     <div class="panel panel-success">
@@ -75,8 +75,8 @@ if(isset($_POST['edit'])){
                         <div class="table-responsive">
   <div class="form-group">
   <div class="form-group">
-  <form action="" method="post" enctype="multipart/form-data">
-          <table border="0" width="100%" cellpadding="0" cellspacing="0">
+	<form action="" method="post" enctype="multipart/form-data">
+ 	        <table border="0" width="100%" cellpadding="0" cellspacing="0">
             <tr valign="top">
               <td>
                   <table border="0" cellpadding="0" cellspacing="0"  id="id-form">
@@ -135,7 +135,7 @@ if(isset($_POST['edit'])){
                     <tr>
                       <th>&nbsp;</th>
                       <td valign="top">
-                        <input type="submit" name="edit" id="edit" value="Edit" class="btn btn-info" />
+                      	<input type="submit" name="edit" id="edit" value="Edit" class="btn btn-info" />
                       </td>
                       <td></td>
                     </tr>
@@ -145,7 +145,7 @@ if(isset($_POST['edit'])){
               </td>
             </tr>
 
-      </form>
+			</form>
     </div>
   </table>
 </form>
