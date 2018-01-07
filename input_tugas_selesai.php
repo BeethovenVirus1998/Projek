@@ -27,7 +27,7 @@ include "conn.php";
             <div id="message-red">
             <table border="0" width="100%" cellpadding="0" cellspacing="0">
             <tr>
-                <td class="red-left"><?php echo mysql_error();?></td>
+                <td class="red-left"><?php echo mysqli_error();?></td>
                 <td class="red-right"><a class="close-red"><img src="images/table/icon_close_red.gif"   alt="" /></a></td>
             </tr>
             </table>
@@ -46,9 +46,9 @@ include "conn.php";
 		$id_kelas=$_GET['id_kelas'];
 		$id_matkul=$_GET['id_matkul'];
 		
-		$dosen=mysql_fetch_array(mysql_query("select * from data_dosen where id_dosen='$id_dosen'"));
-		$kelas=mysql_fetch_array(mysql_query("select * from setup_kelas where id_kelas='$id_kelas'"));
-		$matkul=mysql_fetch_array(mysql_query("select * from setup_matkul where id_matkul='$id_matkul'"));
+		$dosen=mysqli_fetch_array(mysqli_query($koneksi,"select * from data_dosen where id_dosen='$id_dosen'"));
+		$kelas=mysqli_fetch_array(mysqli_query($koneksi,"select * from setup_kelas where id_kelas='$id_kelas'"));
+		$matkul=mysqli_fetch_array(mysqli_query($koneksi,"select * from setup_matkul where id_matkul='$id_matkul'"));
 		
 		$nama_dosen=$dosen['nama_dosen'];
 		$nama_kelas=$kelas['nama_kelas'];
@@ -103,10 +103,10 @@ include "conn.php";
         
         
         <?php
-		$view=mysql_query("SELECT * FROM tbl_tugas tugas, data_mahasiswa mahasiswa WHERE tugas.id_mahasiswa=mahasiswa.id_mahasiswa and tugas.id_dosen='$id_dosen' and tugas.id_kelas='$id_kelas' and tugas.id_matkul='$id_matkul' order by mahasiswa.nama_mahasiswa asc");
+		$view=mysqli_query($koneksi,"SELECT * FROM tbl_tugas tugas, data_mahasiswa mahasiswa WHERE tugas.id_mahasiswa=mahasiswa.id_mahasiswa and tugas.id_dosen='$id_dosen' and tugas.id_kelas='$id_kelas' and tugas.id_matkul='$id_matkul' order by mahasiswa.nama_mahasiswa asc");
 		
 		$i = 1;
-		while($row=mysql_fetch_array($view)){
+		while($row=mysqli_fetch_array($view)){
 			?>
 			<tr>
 				<td><?php echo $i;?></td>
@@ -124,7 +124,7 @@ include "conn.php";
 		}
 			$jumSis = $i-1;
 		?>
-        <input type="hidden" name="jumlah" value="<?php echo $jumSis ?>" />
+        
         </table>
         
         </form>
